@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://xmlns.jcp.org/xml/ns/persistence
+        http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<!-- 1) Tipo de Transaccionalidad -->
+	<persistence-unit name="finanzasPU"
+		transaction-type="JTA">
+		<!-- 2) Proveedor de persistencia -->
+		<!-- La propiedad provider no está configurada, utiliza la capa del proveedor 
+			de aplicación Wildfly/JBoosEAP (Hibernate), Payara/Glassfish (Eclipselink) -->
+
+		<!-- Cuando no es la capa por defecto del servidor, se tiene que asegurar 
+			que esté configurado las librerias necesarias para la capa en cuestión -->
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<!-- <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> -->
+
+		<!-- 3) Configuración DataSource -->
+		<jta-data-source>java:/FinanzasDS</jta-data-source>
+
+		<!-- 4) Configuración Mapeo 
+					- Mapear manual (explícitamente) -> <class>ec.mil.ejercito.Pruebas</> 
+					- Mapear automaticamente 
+					- Ubicación de jar <jar-file></> -->
+
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+
+		<!-- 5) Propiedades de la capa de persistencia o jpa -->
+		<properties>
+			<!-- Properties for Hibernate -->
+			<property name="hibernate.show_sql" value="false" />
+		</properties>
+	</persistence-unit>
+</persistence>
